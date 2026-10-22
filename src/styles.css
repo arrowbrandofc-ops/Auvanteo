@@ -1,0 +1,124 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  /* Inter com eixo óptico: em tamanhos grandes o browser usa o desenho "Display". */
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-electric: var(--electric);
+  --color-ice: var(--ice);
+  --color-steel: var(--steel);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  /* paletas dos conceitos demonstrativos (marcas fictícias) */
+  --color-atlas: #16191d;
+  --color-atlas-2: #23272d;
+  --color-atlas-accent: #e8742a;
+  --color-atlas-sand: #d9cbb6;
+  --color-aurora: #f4ebe6;
+  --color-aurora-2: #e9d8cf;
+  --color-aurora-accent: #8a4b45;
+  --color-mercado: #f1ede1;
+  --color-mercado-accent: #b0472c;
+  --color-mercado-ink: #24402f;
+  --color-mercado-olive: #7d8a4a;
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Paleta oficial AUVANTEO */
+  --ice: #F7F8FA;
+  --electric: #147DFF;
+  --steel: #8496AD;
+  --surface: #101F33;
+  --line: #25374A;
+
+  --background: #0B1017;
+  --foreground: var(--ice);
+  --card: var(--surface);
+  --card-foreground: var(--ice);
+  --primary: var(--electric);
+  --primary-foreground: #0B1017;
+  --secondary: #0D1520;
+  --muted: var(--surface);
+  --muted-foreground: var(--steel);
+  --border: var(--line);
+  --ring: var(--electric);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--electric); color: #0B1017; }
+  :focus-visible { outline: 2px solid var(--color-ring); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  font-variation-settings: "opsz" 32;
+}
+
+/* Rótulo pequeno de secção: ponto azul do logótipo + texto. */
+@utility kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--steel);
+  &::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--electric);
+  }
+}
+
+@utility dot { color: var(--electric); }
+
+/* Grelha técnica muito discreta, usada só em fundos de destaque. */
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+@utility fade-up {
+  animation: fade-up .8s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
